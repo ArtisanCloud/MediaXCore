@@ -1,4 +1,4 @@
-package plugin
+package contract
 
 // PublishRequest 定义发布请求的结构体
 type PublishRequest struct {

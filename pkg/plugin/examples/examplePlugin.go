@@ -1,9 +1,8 @@
-package main
+package examples
 
 import (
 	"fmt"
-
-	"github.com/ArtisanCloud/MediaXCore/pkg/plugin"
+	"github.com/ArtisanCloud/MediaXCore/pkg/plugin/core/contract"
 )
 
 type ExamplePlugin struct {
@@ -19,13 +18,10 @@ func (p *ExamplePlugin) Name() string {
 	return p.PluginName
 }
 
-func (p *ExamplePlugin) Publish(req plugin.PublishRequest, args ...interface{}) (plugin.PublishResult, error) {
+func (p *ExamplePlugin) Publish(req contract.PublishRequest, args ...interface{}) (contract.PublishResult, error) {
 	fmt.Printf("Publishing: Title=%s, Content=%s\n", req.Title, req.Content)
-	return plugin.PublishResult{
+	return contract.PublishResult{
 		Status:  "success",
 		Message: "Published Successfully",
 	}, nil
 }
-
-// 导出插件实例
-var Provider plugin.Provider = &ExamplePlugin{}
