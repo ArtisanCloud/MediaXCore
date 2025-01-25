@@ -18,15 +18,15 @@ func (m *MockPlugin) Name() string {
 	return m.PluginName
 }
 
-func (m *MockPlugin) Publish(req contract.PublishRequest, args ...interface{}) (contract.PublishResult, error) {
-	return contract.PublishResult{
+func (m *MockPlugin) Publish(req *contract.PublishRequest, args ...interface{}) (*contract.PublishResult, error) {
+	return &contract.PublishResult{
 		Status:  "success",
 		Message: "Mock Publish Successful",
 	}, nil
 }
 
 func TestProviderInterface(t *testing.T) {
-	var provider contract.Provider // 定义接口类型的变量
+	var provider contract.ProviderInterface // 定义接口类型的变量
 
 	mock := &MockPlugin{}
 	mock.Initialize(nil)

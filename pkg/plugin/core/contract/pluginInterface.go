@@ -13,11 +13,11 @@ type PublishResult struct {
 }
 
 // Provider 定义插件需要实现的接口
-type Provider interface {
+type ProviderInterface interface {
 	// Initialize 插件初始化方法
 	Initialize(config map[string]interface{}) error
 	// Name 返回插件名称
 	Name() string
 	// Publish 发布内容的方法
-	Publish(req PublishRequest, args ...interface{}) (PublishResult, error)
+	Publish(req *PublishRequest, args ...interface{}) (*PublishResult, error)
 }

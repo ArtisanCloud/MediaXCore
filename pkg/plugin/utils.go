@@ -2,29 +2,40 @@ package plugin
 
 import (
 	"errors"
+	"fmt"
 	"github.com/ArtisanCloud/MediaXCore/pkg/plugin/core/contract"
 	"plugin"
 )
 
 // LoadPlugin 动态加载插件
-func LoadPlugin(path string) (contract.Provider, error) {
+func LoadPlugin(path string, pluginName string) (contract.ProviderInterface, error) {
 	// 打开插件文件
-	plug, err := plugin.Open(path)
+	p, err := plugin.Open(path)
 	if err != nil {
 		return nil, err
 	}
 
 	// 查找 "Provider" 符号
-	symProvider, err := plug.Lookup("Provider")
+	mediaXPlugin, err := LookUpSymbol[contract.ProviderInterface](p, pluginName)
 	if err != nil {
 		return nil, err
 	}
 
-	// 类型断言为 Provider 接口
-	provider, ok := symProvider.(contract.Provider)
-	if !ok {
-		return nil, errors.New("invalid plugin type")
-	}
+	return *mediaXPlugin, nil
+}
 
-	return provider, nil
+func LookUpSymbol[M any](plugin *plugin.Plugin, symbolName string) (*M, error) {
+	symbol, err := plugin.Lookup(symbolName)
+	if err != nil {
+		return nil, err
+	}
+	switch symbol.(type) {
+	case *M:
+		return symbol.(*M), nil
+	case M:
+		result := symbol.(M)
+		return &result, nil
+	default:
+		return nil, errors.New(fmt.Sprintf("unexpected type from module symbol: %T", symbol))
+	}
 }

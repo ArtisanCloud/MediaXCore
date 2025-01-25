@@ -2,22 +2,26 @@ package main
 
 import (
 	"fmt"
+	plugin2 "github.com/ArtisanCloud/MediaXCore/pkg/plugin"
 	"github.com/ArtisanCloud/MediaXCore/pkg/plugin/core/contract"
-	"github.com/ArtisanCloud/MediaXCore/pkg/plugin/examples"
+	"plugin"
 )
 
 func main() {
 
 	// 导出插件实例
-	var examplePlugin contract.Provider = &examples.ExamplePlugin{}
-
-	_ = examplePlugin.Initialize(nil)
-	result, err := examplePlugin.Publish(contract.PublishRequest{})
+	// 加载插件
+	p, err := plugin.Open("./pkg/plugin/examples/plugin.so")
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(result.Status)
-	fmt.Println(result.Message)
+	ptrProvider, err := plugin2.LookUpSymbol[contract.ProviderInterface](p, "ExamplePlugin")
+	if err != nil {
+		panic(err)
+	}
+	examplePlugin := *ptrProvider
+	fmt.Printf("plugin loaded name :%s", examplePlugin.Name())
+	fmt.Println(examplePlugin.Publish(&contract.PublishRequest{}))
 
 }
