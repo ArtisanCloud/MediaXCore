@@ -32,4 +32,4 @@ func (p *ExampleXPlugin) Publish(req *contract.PublishRequest, args ...interface
 	}, nil
 }
 
-var ExamplePlugin ExampleXPlugin = NewExampleXPlugin()
+var PluginExample ExampleXPlugin = NewExampleXPlugin()

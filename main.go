@@ -16,7 +16,14 @@ func main() {
 		panic(err)
 	}
 
-	ptrProvider, err := plugin2.LookUpSymbol[contract.ProviderInterface](p, "ExamplePlugin")
+	// 加载yaml配置文件
+	configPlugin, err := plugin2.ReadPluginMetadata("./pkg/plugin/examples/plugin.yaml")
+	if err != nil {
+		panic(err)
+	}
+	pluginName := configPlugin.Name
+
+	ptrProvider, err := plugin2.LookUpSymbol[contract.ProviderInterface](p, pluginName)
 	if err != nil {
 		panic(err)
 	}
