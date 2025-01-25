@@ -1,5 +1,6 @@
 name: PluginExample
 version: 1.0.0
 type: open
-path: ./plugin/plugin.so
+sourcePath: ./plugin/plugin.so
+buildPath: ./pkg/plugin/examples/plugin.so
 config:
