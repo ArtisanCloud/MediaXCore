@@ -21,7 +21,7 @@ func main() {
 		panic(err)
 	}
 	examplePlugin := *ptrProvider
-	fmt.Printf("plugin loaded name :%s", examplePlugin.Name())
+	fmt.Printf("plugin loaded name :%s \n", examplePlugin.Name())
 	fmt.Println(examplePlugin.Publish(&contract.PublishRequest{}))
 
 }
