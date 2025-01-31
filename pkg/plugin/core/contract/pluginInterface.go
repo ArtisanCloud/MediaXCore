@@ -1,23 +1,13 @@
 package contract
 
-// PublishRequest 定义发布请求的结构体
-type PublishRequest struct {
-	Title   string
-	Content string
-}
-
-// PublishResult 定义发布结果的结构体
-type PublishResult struct {
-	Status  string
-	Message string
-}
+import "context"
 
 // Provider 定义插件需要实现的接口
 type ProviderInterface interface {
 	// Initialize 插件初始化方法
-	Initialize(config map[string]interface{}) error
+	Initialize(ctx *context.Context, config interface{}) error
 	// Name 返回插件名称
-	Name() string
+	Name(ctx *context.Context) string
 	// Publish 发布内容的方法
-	Publish(req *PublishRequest, args ...interface{}) (*PublishResult, error)
+	Publish(ctx *context.Context, req interface{}) (interface{}, error)
 }
