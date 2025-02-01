@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/ArtisanCloud/MediaXCore/pkg/logger"
-	"github.com/ArtisanCloud/MediaXCore/pkg/plugin/examples/contract"
+	"github.com/ArtisanCloud/MediaXCore/pkg/plugin/core/contract"
 	"reflect"
 )
 

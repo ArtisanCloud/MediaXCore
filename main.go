@@ -6,13 +6,12 @@ import (
 	"github.com/ArtisanCloud/MediaXCore/pkg/logger/config"
 	plugin2 "github.com/ArtisanCloud/MediaXCore/pkg/plugin"
 	"github.com/ArtisanCloud/MediaXCore/pkg/plugin/core/contract"
-	contract2 "github.com/ArtisanCloud/MediaXCore/pkg/plugin/examples/contract"
 	"plugin"
 )
 
 func main() {
 	ctx := context.Background()
-	configPlugin := &contract2.PluginConfig{
+	configPlugin := &contract.PluginConfig{
 		LogConfig: config.LogConfig{
 			Level:         "debug",
 			Console:       true,
@@ -30,7 +29,7 @@ func main() {
 	log := logger.GetLogger(&configPlugin.LogConfig)
 	//fmt.Printf("main logger address %p \n", log)
 	// 加载yaml配置文件
-	configPluginMetadata, err := plugin2.ReadPluginMetadata("./pkg/plugin/examples/plugin.yaml")
+	configPluginMetadata, err := plugin2.ReadPluginMetadata("./pkg/plugin/examples/plugin/plugin.yaml")
 	if err != nil {
 		panic(err)
 	}
@@ -54,11 +53,11 @@ func main() {
 
 	log.Info("plugin loaded name " + examplePlugin.Name(&ctx))
 
-	res, err := examplePlugin.Publish(&ctx, &contract2.PublishRequest{})
+	res, err := examplePlugin.Publish(&ctx, &contract.PublishRequest{})
 	if err != nil {
 		log.Error(err.Error())
 	}
-	pRes := res.(*contract2.PublishResponse)
+	pRes := res.(*contract.PublishResponse)
 	log.Info("published content: " + pRes.Msg)
 
 }
