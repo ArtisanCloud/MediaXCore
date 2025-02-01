@@ -13,6 +13,7 @@ type PluginMetadata struct {
 	Name       string                 `yaml:"name"`
 	Version    string                 `yaml:"version"`
 	Type       PluginType             `yaml:"type"`
+	WorkDir    string                 `yaml:"workDir"`
 	SourcePath string                 `yaml:"sourcePath"`
 	BuildPath  string                 `yaml:"buildPath"`
 	Config     map[string]interface{} `yaml:"config"`
