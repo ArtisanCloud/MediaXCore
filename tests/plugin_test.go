@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/ArtisanCloud/MediaXCore/pkg/plugin/core/contract"
-	contract2 "github.com/ArtisanCloud/MediaXCore/pkg/plugin/examples/contract"
 	"reflect"
 	"testing"
 )
@@ -24,14 +23,14 @@ func (m *MockPlugin) Name(ctx *context.Context) string {
 
 func (m *MockPlugin) Publish(ctx *context.Context, arg interface{}) (interface{}, error) {
 	// parse arg to contract contract2.PublishRequest firstly
-	req, ok := arg.(*contract2.PublishRequest)
+	req, ok := arg.(*contract.PublishRequest)
 	if !ok {
 		argType := reflect.TypeOf(arg)
 		return nil, fmt.Errorf("invalid argument type %s for PluginMediaX arg: *contract.PublishRequest", argType.String())
 	}
 	fmt.Printf("Publishing %s plugin with request: %+s\n", m.PluginName, req.Content)
 
-	result := &contract2.PublishResponse{}
+	result := &contract.PublishResponse{}
 	result.Code = 0
 	result.Msg = "Mock Plugin Published Successfully"
 
