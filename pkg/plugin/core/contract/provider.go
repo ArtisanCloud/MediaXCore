@@ -1,77 +1,34 @@
 package contract
 
-import "context"
-
-// ---------------------------------------------
-// Provider 定义插件需要实现的接口
-// ---------------------------------------------
-type ProviderInterface interface {
-	// Initialize 插件初始化方法
-	Initialize(ctx *context.Context, config interface{}) error
-	// Name 返回插件名称
-	Name(ctx *context.Context) string
-	// Publish 发布内容的方法
-	Publish(ctx *context.Context, req interface{}) (interface{}, error)
-}
-
-// ---------------------------------------------
-// 定义Provider
-// ---------------------------------------------
-
-// PluginMediaXProvider 枚举定义
+// 定义平台类型（Provider）
 type PluginMediaXProvider string
 
 const (
-	PluginMediaX PluginMediaXProvider = "PluginMediaX"
+	// 微信生态（WeChat）
+	WechatOfficialAccount PluginMediaXProvider = "WechatOfficialAccount" // 公众号
+	WechatMiniProgram     PluginMediaXProvider = "WechatMiniProgram"     // 小程序
+	WechatChannel         PluginMediaXProvider = "WechatChannel"         // 视频号
+	WechatWork            PluginMediaXProvider = "WechatWork"            // 企业微信
 
-	// WeChat
-	WechatOfficialAccount PluginMediaXProvider = "WechatOfficialAccount"
-	WechatMiniProgram     PluginMediaXProvider = "WechatMiniProgram"
-	WechatMoments         PluginMediaXProvider = "WechatMoments"
-	WechatVideo           PluginMediaXProvider = "WechatVideo"
-	WechatLive            PluginMediaXProvider = "WechatLive"
+	// 抖音生态（Douyin）
+	Douyin PluginMediaXProvider = "Douyin" // 抖音
+
+	// 小红书生态（RedBook）
+	RedBook PluginMediaXProvider = "RedBook" // 小红书
 
 	// YouTube
-	YouTubeChannel  PluginMediaXProvider = "YouTubeChannel"
-	YouTubeVideo    PluginMediaXProvider = "YouTubeVideo"
-	YouTubePlaylist PluginMediaXProvider = "YouTubePlaylist"
-	YouTubeLive     PluginMediaXProvider = "YouTubeLive"
+	YouTube PluginMediaXProvider = "YouTube" // YouTube
+)
 
-	// Instagram
-	InstagramFeed  PluginMediaXProvider = "InstagramFeed"
-	InstagramStory PluginMediaXProvider = "InstagramStory"
-	InstagramPost  PluginMediaXProvider = "InstagramPost"
-	InstagramVideo PluginMediaXProvider = "InstagramVideo"
+// **内容类型（Content Type）**
+type PluginMediaXContentType string
 
-	// Facebook
-	FacebookPage  PluginMediaXProvider = "FacebookPage"
-	FacebookPost  PluginMediaXProvider = "FacebookPost"
-	FacebookLive  PluginMediaXProvider = "FacebookLive"
-	FacebookGroup PluginMediaXProvider = "FacebookGroup"
-
-	// TikTok
-	TikTokVideo PluginMediaXProvider = "TikTokVideo"
-	TikTokLive  PluginMediaXProvider = "TikTokLive"
-	TikTokDuet  PluginMediaXProvider = "TikTokDuet"
-
-	// LinkedIn
-	LinkedInPost    PluginMediaXProvider = "LinkedInPost"
-	LinkedInArticle PluginMediaXProvider = "LinkedInArticle"
-	LinkedInVideo   PluginMediaXProvider = "LinkedInVideo"
-
-	// Snapchat
-	SnapchatStory     PluginMediaXProvider = "SnapchatStory"
-	SnapchatSpotlight PluginMediaXProvider = "SnapchatSpotlight"
-
-	// Pinterest
-	PinterestPin   PluginMediaXProvider = "PinterestPin"
-	PinterestBoard PluginMediaXProvider = "PinterestBoard"
-
-	// Vimeo
-	VimeoVideo PluginMediaXProvider = "VimeoVideo"
-	VimeoLive  PluginMediaXProvider = "VimeoLive"
-
-	// Reddit
-	RedditPost    PluginMediaXProvider = "RedditPost"
-	RedditComment PluginMediaXProvider = "RedditComment"
+const (
+	ContentTypeVideo  PluginMediaXContentType = "Video"  // 视频
+	ContentTypeLive   PluginMediaXContentType = "Live"   // 直播
+	ContentTypePost   PluginMediaXContentType = "Post"   // 文章/图文
+	ContentTypeStory  PluginMediaXContentType = "Story"  // 短时动态（如 Instagram Story）
+	ContentTypeReels  PluginMediaXContentType = "Reels"  // 短视频（如 Facebook Reels）
+	ContentTypeDuet   PluginMediaXContentType = "Duet"   // TikTok/抖音对拍
+	ContentTypeStatus PluginMediaXContentType = "Status" // 类似 WhatsApp 状态，微信 Moment（朋友圈）
 )
