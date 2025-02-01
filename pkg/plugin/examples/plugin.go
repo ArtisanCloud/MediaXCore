@@ -31,6 +31,7 @@ func (p *ExampleXPlugin) Initialize(ctx *context.Context, arg interface{}) error
 	p.PluginName = "ExamplePlugin"
 
 	p.Logger = logger.NewLogger(&c.LogConfig)
+	//fmt.Printf("plugin logger address %p \n", p.Logger)
 
 	p.Logger.InfoF("Initializing %s plugin with config base uri: %+s\n", p.PluginName, c.BaseUri)
 

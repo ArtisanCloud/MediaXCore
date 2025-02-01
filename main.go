@@ -12,15 +12,30 @@ import (
 
 func main() {
 	ctx := context.Background()
-	log := logger.GetLogger(nil)
-
+	configPlugin := &contract2.PluginConfig{
+		LogConfig: config.LogConfig{
+			Level:         "debug",
+			Console:       true,
+			UseJsonFormat: true,
+			File: config.FileConfig{
+				Enable: true,
+				//InfoFilePath:  "./logs/info.log",
+				//ErrorFilePath: "./logs/error.log",
+			},
+			//Loki: config.LokiConfig{},
+			HttpDebug: true,
+			Debug:     true,
+		},
+	}
+	log := logger.GetLogger(&configPlugin.LogConfig)
+	//fmt.Printf("main logger address %p \n", log)
 	// 加载yaml配置文件
-	configPlugin, err := plugin2.ReadPluginMetadata("./pkg/plugin/examples/plugin.yaml")
+	configPluginMetadata, err := plugin2.ReadPluginMetadata("./pkg/plugin/examples/plugin.yaml")
 	if err != nil {
 		panic(err)
 	}
-	pluginName := configPlugin.Name
-	buildPath := configPlugin.BuildPath
+	pluginName := configPluginMetadata.Name
+	buildPath := configPluginMetadata.BuildPath
 
 	// 加载插件
 	p, err := plugin.Open(buildPath)
@@ -35,21 +50,7 @@ func main() {
 
 	examplePlugin := *ptrProvider
 	// 初始化插件
-	err = examplePlugin.Initialize(&ctx, &contract2.PluginConfig{
-		LogConfig: config.LogConfig{
-			Level:         "debug",
-			Console:       true,
-			UseJsonFormat: true,
-			File: config.FileConfig{
-				Enable: true,
-				//InfoFilePath:  "./logs/info.log",
-				//ErrorFilePath: "./logs/error.log",
-			},
-			//Loki: config.LokiConfig{},
-			HttpDebug: true,
-			Debug:     true,
-		},
-	})
+	err = examplePlugin.Initialize(&ctx, configPlugin)
 
 	log.Info("plugin loaded name " + examplePlugin.Name(&ctx))
 

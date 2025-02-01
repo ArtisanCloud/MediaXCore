@@ -2,6 +2,7 @@ package logger
 
 import (
 	"fmt"
+	lumberjack "github.com/ArtisanCloud/MediaXCore/pkg/logger/lib"
 	"github.com/ArtisanCloud/MediaXCore/pkg/logger/utils"
 	"os"
 	"sync"
@@ -22,6 +23,17 @@ var (
 	once     sync.Once
 	instance *Logger
 )
+
+func getFileWriteSyncer(fileConfig *config.FileConfig, fileName string) zapcore.WriteSyncer {
+
+	return zapcore.AddSync(&lumberjack.Logger{
+		Filename:   fileName,
+		MaxSize:    fileConfig.MaxSize, // megabytes
+		MaxBackups: fileConfig.MaxBackups,
+		MaxAge:     fileConfig.MaxAge,   // days
+		Compress:   fileConfig.Compress, // disabled by default
+	})
+}
 
 func NewLogger(config *config.LogConfig) *Logger {
 	encoderConfig := zap.NewProductionEncoderConfig()
@@ -52,14 +64,14 @@ func NewLogger(config *config.LogConfig) *Logger {
 		infoLevelEnabler := zap.LevelEnablerFunc(func(lvl zapcore.Level) bool {
 			return lvl >= zapcore.InfoLevel && lvl < zapcore.ErrorLevel
 		})
-		infoFileCore := zapcore.NewCore(encoder, writer.NewFileWriter(config.File.InfoFilePath), infoLevelEnabler)
+		infoFileCore := zapcore.NewCore(encoder, getFileWriteSyncer(&config.File, config.File.InfoFilePath), infoLevelEnabler)
 		cores = append(cores, infoFileCore)
 
 		// 只记录 Error 及以上级别的日志
 		errorLevelEnabler := zap.LevelEnablerFunc(func(lvl zapcore.Level) bool {
 			return lvl >= zapcore.ErrorLevel
 		})
-		errorFileCore := zapcore.NewCore(encoder, writer.NewFileWriter(config.File.ErrorFilePath), errorLevelEnabler)
+		errorFileCore := zapcore.NewCore(encoder, getFileWriteSyncer(&config.File, config.File.ErrorFilePath), errorLevelEnabler)
 		cores = append(cores, errorFileCore)
 	}
 

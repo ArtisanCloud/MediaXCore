@@ -14,6 +14,10 @@ type FileConfig struct {
 	Enable        bool   `json:"enable" yaml:"enable"`
 	InfoFilePath  string `json:"infoFilePath" yaml:"infoFilePath"`
 	ErrorFilePath string `json:"errorFilePath" yaml:"errorFilePath"`
+	MaxSize       int    `json:"maxSize" yaml:"maxSize"`
+	MaxBackups    int    `json:"maxBackups" yaml:"maxBackups"`
+	MaxAge        int    `json:"maxAge" yaml:"maxAge"`
+	Compress      bool   `json:"compress" yaml:"compress"`
 }
 
 // LokiConfig 配置 Loki 日志
