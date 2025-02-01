@@ -25,53 +25,53 @@ const (
 	PluginMediaX PluginMediaXProvider = "PluginMediaX"
 
 	// WeChat
-	WechatOfficialAccount PluginMediaXProvider = "PluginMediaXWechatOfficialAccount"
-	WechatMiniProgram     PluginMediaXProvider = "PluginMediaXWechatMiniProgram"
-	WechatMoments         PluginMediaXProvider = "PluginMediaXWechatMoments"
-	WechatVideo           PluginMediaXProvider = "PluginMediaXWechatVideo"
-	WechatLive            PluginMediaXProvider = "PluginMediaXWechatLive"
+	WechatOfficialAccount PluginMediaXProvider = "WechatOfficialAccount"
+	WechatMiniProgram     PluginMediaXProvider = "WechatMiniProgram"
+	WechatMoments         PluginMediaXProvider = "WechatMoments"
+	WechatVideo           PluginMediaXProvider = "WechatVideo"
+	WechatLive            PluginMediaXProvider = "WechatLive"
 
 	// YouTube
-	YouTubeChannel  PluginMediaXProvider = "PluginMediaXYouTubeChannel"
-	YouTubeVideo    PluginMediaXProvider = "PluginMediaXYouTubeVideo"
-	YouTubePlaylist PluginMediaXProvider = "PluginMediaXYouTubePlaylist"
-	YouTubeLive     PluginMediaXProvider = "PluginMediaXYouTubeLive"
+	YouTubeChannel  PluginMediaXProvider = "YouTubeChannel"
+	YouTubeVideo    PluginMediaXProvider = "YouTubeVideo"
+	YouTubePlaylist PluginMediaXProvider = "YouTubePlaylist"
+	YouTubeLive     PluginMediaXProvider = "YouTubeLive"
 
 	// Instagram
-	InstagramFeed  PluginMediaXProvider = "PluginMediaXInstagramFeed"
-	InstagramStory PluginMediaXProvider = "PluginMediaXInstagramStory"
-	InstagramPost  PluginMediaXProvider = "PluginMediaXInstagramPost"
-	InstagramVideo PluginMediaXProvider = "PluginMediaXInstagramVideo"
+	InstagramFeed  PluginMediaXProvider = "InstagramFeed"
+	InstagramStory PluginMediaXProvider = "InstagramStory"
+	InstagramPost  PluginMediaXProvider = "InstagramPost"
+	InstagramVideo PluginMediaXProvider = "InstagramVideo"
 
 	// Facebook
-	FacebookPage  PluginMediaXProvider = "PluginMediaXFacebookPage"
-	FacebookPost  PluginMediaXProvider = "PluginMediaXFacebookPost"
-	FacebookLive  PluginMediaXProvider = "PluginMediaXFacebookLive"
-	FacebookGroup PluginMediaXProvider = "PluginMediaXFacebookGroup"
+	FacebookPage  PluginMediaXProvider = "FacebookPage"
+	FacebookPost  PluginMediaXProvider = "FacebookPost"
+	FacebookLive  PluginMediaXProvider = "FacebookLive"
+	FacebookGroup PluginMediaXProvider = "FacebookGroup"
 
 	// TikTok
-	TikTokVideo PluginMediaXProvider = "PluginMediaXTikTokVideo"
-	TikTokLive  PluginMediaXProvider = "PluginMediaXTikTokLive"
-	TikTokDuet  PluginMediaXProvider = "PluginMediaXTikTokDuet"
+	TikTokVideo PluginMediaXProvider = "TikTokVideo"
+	TikTokLive  PluginMediaXProvider = "TikTokLive"
+	TikTokDuet  PluginMediaXProvider = "TikTokDuet"
 
 	// LinkedIn
-	LinkedInPost    PluginMediaXProvider = "PluginMediaXLinkedInPost"
-	LinkedInArticle PluginMediaXProvider = "PluginMediaXLinkedInArticle"
-	LinkedInVideo   PluginMediaXProvider = "PluginMediaXLinkedInVideo"
+	LinkedInPost    PluginMediaXProvider = "LinkedInPost"
+	LinkedInArticle PluginMediaXProvider = "LinkedInArticle"
+	LinkedInVideo   PluginMediaXProvider = "LinkedInVideo"
 
 	// Snapchat
-	SnapchatStory     PluginMediaXProvider = "PluginMediaXSnapchatStory"
-	SnapchatSpotlight PluginMediaXProvider = "PluginMediaXSnapchatSpotlight"
+	SnapchatStory     PluginMediaXProvider = "SnapchatStory"
+	SnapchatSpotlight PluginMediaXProvider = "SnapchatSpotlight"
 
 	// Pinterest
-	PinterestPin   PluginMediaXProvider = "PluginMediaXPinterestPin"
-	PinterestBoard PluginMediaXProvider = "PluginMediaXPinterestBoard"
+	PinterestPin   PluginMediaXProvider = "PinterestPin"
+	PinterestBoard PluginMediaXProvider = "PinterestBoard"
 
 	// Vimeo
-	VimeoVideo PluginMediaXProvider = "PluginMediaXVimeoVideo"
-	VimeoLive  PluginMediaXProvider = "PluginMediaXVimeoLive"
+	VimeoVideo PluginMediaXProvider = "VimeoVideo"
+	VimeoLive  PluginMediaXProvider = "VimeoLive"
 
 	// Reddit
-	RedditPost    PluginMediaXProvider = "PluginMediaXRedditPost"
-	RedditComment PluginMediaXProvider = "PluginMediaXRedditComment"
+	RedditPost    PluginMediaXProvider = "RedditPost"
+	RedditComment PluginMediaXProvider = "RedditComment"
 )
