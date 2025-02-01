@@ -9,6 +9,13 @@ const (
 )
 
 // 插件描述文件结构
+type PluginsMetadata struct {
+	Name    string           `yaml:"name"`
+	Version string           `yaml:"version"`
+	Type    PluginType       `yaml:"type"`
+	Plugins []PluginMetadata `yaml:"plugins"`
+}
+
 type PluginMetadata struct {
 	Name       string                 `yaml:"name"`
 	Version    string                 `yaml:"version"`

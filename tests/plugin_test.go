@@ -43,7 +43,7 @@ func TestProviderInterface(t *testing.T) {
 	ctx := context.Background()
 
 	mock := &MockPlugin{}
-	mock.Initialize(&ctx, nil)
+	_ = mock.Initialize(&ctx, nil)
 	provider = mock // 验证 MockPlugin 是否满足 contract.Provider 接口
 
 	if provider.Name(&ctx) != "MockPlugin" {

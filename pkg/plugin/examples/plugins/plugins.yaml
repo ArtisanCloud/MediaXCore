@@ -1,0 +1,15 @@
+name: PluginExamples
+version: 1.0.0
+type: open
+plugins:
+  - name: PluginExample1
+    type: open
+    sourcePath: ./pkg/plugin/examples/src/pluginExample1.go
+    buildPath: ./pkg/plugin/examples/plugins/pluginExample1.so
+    config: {}
+
+  - name: PluginExample2
+    type: open
+    sourcePath: ./pkg/plugin/examples/src/pluginExample2.go
+    buildPath: ./pkg/plugin/examples/plugins/pluginExample2.so
+    config: {}

@@ -8,18 +8,18 @@ import (
 	"reflect"
 )
 
-type ExampleXPlugin struct {
+type ExampleXPlugin2 struct {
 	PluginName string
 	Logger     *logger.Logger
 }
 
-func NewExampleXPlugin() ExampleXPlugin {
-	return ExampleXPlugin{
-		PluginName: "ExamplePlugin",
+func NewExampleXPlugin2() ExampleXPlugin2 {
+	return ExampleXPlugin2{
+		PluginName: "ExamplePlugin2",
 	}
 }
 
-func (p *ExampleXPlugin) Initialize(ctx *context.Context, arg interface{}) error {
+func (p *ExampleXPlugin2) Initialize(ctx *context.Context, arg interface{}) error {
 
 	// parse arg to contract config.PluginConfig firstly
 	c, ok := arg.(*contract.PluginConfig)
@@ -27,8 +27,6 @@ func (p *ExampleXPlugin) Initialize(ctx *context.Context, arg interface{}) error
 		argType := reflect.TypeOf(arg)
 		return fmt.Errorf("initializing %s invalid argument type %s for arg: *config.PluginConfig", p.PluginName, argType.String())
 	}
-
-	p.PluginName = "ExamplePlugin"
 
 	p.Logger = logger.NewLogger(&c.LogConfig)
 	//fmt.Printf("plugin logger address %p \n", p.Logger)
@@ -38,11 +36,11 @@ func (p *ExampleXPlugin) Initialize(ctx *context.Context, arg interface{}) error
 	return nil
 }
 
-func (p *ExampleXPlugin) Name(ctx *context.Context) string {
+func (p *ExampleXPlugin2) Name(ctx *context.Context) string {
 	return p.PluginName
 }
 
-func (p *ExampleXPlugin) Publish(ctx *context.Context, arg interface{}) (interface{}, error) {
+func (p *ExampleXPlugin2) Publish(ctx *context.Context, arg interface{}) (interface{}, error) {
 	// parse arg to contract contract2.PublishRequest firstly
 	req, ok := arg.(*contract.PublishRequest)
 	if !ok {
@@ -58,4 +56,4 @@ func (p *ExampleXPlugin) Publish(ctx *context.Context, arg interface{}) (interfa
 	return result, nil
 }
 
-var PluginExample ExampleXPlugin = NewExampleXPlugin()
+var PluginExample2 ExampleXPlugin2 = NewExampleXPlugin2()

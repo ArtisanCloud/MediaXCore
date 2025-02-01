@@ -29,35 +29,40 @@ func main() {
 	log := logger.GetLogger(&configPlugin.LogConfig)
 	//fmt.Printf("main logger address %p \n", log)
 	// 加载yaml配置文件
-	configPluginMetadata, err := plugin2.ReadPluginMetadata("./pkg/plugin/examples/plugin/plugin.yaml")
-	if err != nil {
-		panic(err)
-	}
-	pluginName := configPluginMetadata.Name
-	buildPath := configPluginMetadata.BuildPath
-
-	// 加载插件
-	p, err := plugin.Open(buildPath)
+	configPluginsMetadata, err := plugin2.ReadPluginMetadata("./pkg/plugin/examples/plugins/plugins.yaml")
 	if err != nil {
 		panic(err)
 	}
 
-	ptrProvider, err := plugin2.LookUpSymbol[contract.ProviderInterface](p, pluginName)
-	if err != nil {
-		panic(err)
+	log.Info("parsed plugin bundle config file " + configPluginsMetadata.Name)
+
+	for _, configPluginMetadata := range configPluginsMetadata.Plugins {
+		pluginName := configPluginMetadata.Name
+		buildPath := configPluginMetadata.BuildPath
+
+		// 加载插件
+		p, err := plugin.Open(buildPath)
+		if err != nil {
+			panic(err)
+		}
+
+		ptrProvider, err := plugin2.LookUpSymbol[contract.ProviderInterface](p, pluginName)
+		if err != nil {
+			panic(err)
+		}
+
+		examplePlugin := *ptrProvider
+		// 初始化插件
+		err = examplePlugin.Initialize(&ctx, configPlugin)
+
+		log.Info("plugin loaded name " + examplePlugin.Name(&ctx))
+
+		res, err := examplePlugin.Publish(&ctx, &contract.PublishRequest{})
+		if err != nil {
+			log.Error(err.Error())
+		}
+		pRes := res.(*contract.PublishResponse)
+		log.Info("published content: " + pRes.Msg)
 	}
-
-	examplePlugin := *ptrProvider
-	// 初始化插件
-	err = examplePlugin.Initialize(&ctx, configPlugin)
-
-	log.Info("plugin loaded name " + examplePlugin.Name(&ctx))
-
-	res, err := examplePlugin.Publish(&ctx, &contract.PublishRequest{})
-	if err != nil {
-		log.Error(err.Error())
-	}
-	pRes := res.(*contract.PublishResponse)
-	log.Info("published content: " + pRes.Msg)
 
 }

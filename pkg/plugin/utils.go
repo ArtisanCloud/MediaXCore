@@ -14,29 +14,29 @@ import (
 // LoadConfig 加载yaml配置文件
 
 // 读取插件描述文件
-func ReadPluginMetadata(pluginFilePath string) (*core.PluginMetadata, error) {
+func ReadPluginMetadata(pluginsFilePath string) (*core.PluginsMetadata, error) {
 	// 检查路径是否存在
-	if _, err := os.Stat(pluginFilePath); os.IsNotExist(err) {
-		return nil, fmt.Errorf("file does not exist: %s", pluginFilePath)
+	if _, err := os.Stat(pluginsFilePath); os.IsNotExist(err) {
+		return nil, fmt.Errorf("file does not exist: %s", pluginsFilePath)
 	}
 
 	// 读取文件
-	data, err := os.ReadFile(pluginFilePath)
+	data, err := os.ReadFile(pluginsFilePath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read file: %v", err)
 	}
 
-	metadata := &core.PluginMetadata{}
-	if err = yaml.Unmarshal(data, metadata); err != nil {
-		return nil, fmt.Errorf("failed to decode plugin description file %s: %v", pluginFilePath, err)
+	metadatas := &core.PluginsMetadata{}
+	if err = yaml.Unmarshal(data, metadatas); err != nil {
+		return nil, fmt.Errorf("failed to decode plugin description file %s: %v", pluginsFilePath, err)
 	}
 
 	// 增加验证逻辑
-	if metadata.Name == "" || metadata.Version == "" || metadata.Type == "" {
-		return nil, fmt.Errorf("plugin metadata is incomplete or invalid in %s", pluginFilePath)
+	if metadatas.Name == "" || metadatas.Type == "" {
+		return nil, fmt.Errorf("plugin metadata is incomplete or invalid in %s", pluginsFilePath)
 	}
 
-	return metadata, nil
+	return metadatas, nil
 }
 
 // LoadPlugin 动态加载插件

@@ -1,6 +1,0 @@
-name: PluginExample
-version: 1.0.0
-type: open
-sourcePath: ./pkg/plugin/examples/src/plugin.go
-buildPath: ./pkg/plugin/examples/plugin/plugin.so
-config:
