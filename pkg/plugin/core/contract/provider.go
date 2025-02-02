@@ -25,7 +25,7 @@ const (
 	WechatWork            PluginMediaXProvider = "WechatWork"            // 企业微信
 
 	// 抖音生态（Douyin）
-	Douyin PluginMediaXProvider = "Douyin" // 抖音
+	DouYin PluginMediaXProvider = "DouYin" // 抖音
 
 	// 小红书生态（RedBook）
 	RedBook PluginMediaXProvider = "RedBook" // 小红书
