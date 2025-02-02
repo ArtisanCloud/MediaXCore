@@ -15,23 +15,36 @@ type ProviderInterface interface {
 }
 
 // 定义平台类型（Provider）
-type PluginMediaXProvider string
+type MediaVendor string
+type AppPlugin string
 
 const (
-	// 微信生态（WeChat）
-	WechatOfficialAccount PluginMediaXProvider = "WechatOfficialAccount" // 公众号
-	WechatMiniProgram     PluginMediaXProvider = "WechatMiniProgram"     // 小程序
-	WechatChannel         PluginMediaXProvider = "WechatChannel"         // 视频号
-	WechatWork            PluginMediaXProvider = "WechatWork"            // 企业微信
+	// 微信生态（WeChat）平台
+	WechatMediaVendor MediaVendor = "WeChat"
 
-	// 抖音生态（DouYin）
-	DouYin PluginMediaXProvider = "DouYin" // 抖音
+	// 微信相关插件
+	WechatOfficialAccount AppPlugin = "WechatOfficialAccount" // 公众号
+	WechatMiniProgram     AppPlugin = "WechatMiniProgram"     // 小程序
+	WechatChannel         AppPlugin = "WechatChannel"         // 视频号
+	WechatWork            AppPlugin = "WechatWork"            // 企业微信
 
-	// 小红书生态（RedBook）
-	RedBook PluginMediaXProvider = "RedBook" // 小红书
+	// 抖音生态（DouYin）平台
+	DouYinMediaVendor MediaVendor = "DouYin"
 
-	// YouTube
-	YouTube PluginMediaXProvider = "YouTube" // YouTube
+	// 抖音插件
+	DouYin AppPlugin = "DouYin" // 抖音
+
+	// 小红书生态（RedBook）平台
+	RedBookMediaVendor MediaVendor = "RedBook"
+
+	// 小红书插件
+	RedBook AppPlugin = "RedBook" // 小红书
+
+	// YouTube平台
+	YouTubeMediaVendor MediaVendor = "YouTube"
+
+	// YouTube插件
+	YouTube AppPlugin = "YouTube" // YouTube
 )
 
 // **内容类型（Content Type）**
