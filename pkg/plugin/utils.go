@@ -14,7 +14,7 @@ import (
 // LoadConfig 加载yaml配置文件
 
 // 读取插件描述文件
-func ReadPluginMetadata(pluginsFilePath string) (*core.PluginsMetadata, error) {
+func ReadPluginBundleMetadata(pluginsFilePath string) (*core.PluginsMetadata, error) {
 	// 检查路径是否存在
 	if _, err := os.Stat(pluginsFilePath); os.IsNotExist(err) {
 		return nil, fmt.Errorf("file does not exist: %s", pluginsFilePath)
