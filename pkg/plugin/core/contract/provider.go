@@ -24,7 +24,7 @@ const (
 	WechatChannel         PluginMediaXProvider = "WechatChannel"         // 视频号
 	WechatWork            PluginMediaXProvider = "WechatWork"            // 企业微信
 
-	// 抖音生态（Douyin）
+	// 抖音生态（DouYin）
 	DouYin PluginMediaXProvider = "DouYin" // 抖音
 
 	// 小红书生态（RedBook）
