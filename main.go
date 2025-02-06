@@ -2,11 +2,12 @@ package main
 
 import (
 	"context"
+	"plugin"
+
 	"github.com/ArtisanCloud/MediaXCore/pkg/logger"
 	"github.com/ArtisanCloud/MediaXCore/pkg/logger/config"
 	plugin2 "github.com/ArtisanCloud/MediaXCore/pkg/plugin"
 	"github.com/ArtisanCloud/MediaXCore/pkg/plugin/core/contract"
-	"plugin"
 )
 
 func main() {
@@ -29,7 +30,7 @@ func main() {
 	log := logger.GetLogger(&configPlugin.LogConfig)
 	//fmt.Printf("main logger address %p \n", log)
 	// 加载yaml配置文件
-	configPluginsMetadata, err := plugin2.ReadPluginMetadata("./pkg/plugin/examples/plugins/plugins.yaml")
+	configPluginsMetadata, err := plugin2.ReadPluginBundleMetadata("./pkg/plugin/examples/plugins/plugins.yaml")
 	if err != nil {
 		panic(err)
 	}
