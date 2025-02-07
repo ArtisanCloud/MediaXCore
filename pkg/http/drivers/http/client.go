@@ -6,6 +6,7 @@ import (
 	"net/url"
 
 	"github.com/ArtisanCloud/MediaXCore/pkg/http/contract"
+	"github.com/ArtisanCloud/MediaXCore/utils/fmt"
 	"github.com/pkg/errors"
 )
 
@@ -68,7 +69,7 @@ func (c *Client) SetConfig(config *contract.ClientConfig) {
 		certPair, err := tls.LoadX509KeyPair(config.Cert.CertFile, config.Cert.KeyFile)
 		if err != nil {
 			err = errors.Wrap(err, "failed to load certificate")
-			Dump(err)
+			fmt.Dump(err)
 			return
 		}
 		coreClient.Transport = &http.Transport{TLSClientConfig: &tls.Config{
