@@ -20,7 +20,7 @@ func NewRedisCache(client *redis.Client) *RedisCache {
 }
 
 // Get 实现 Cache 接口的 Get 方法
-func (r *RedisCache) Get(ctx context.Context, key string) ([]byte, error) {
+func (r *RedisCache) Get(ctx context.Context, key string) (interface{}, error) {
 	val, err := r.client.Get(ctx, key).Bytes()
 	if err == redis.Nil {
 		return nil, nil // 键不存在
@@ -29,7 +29,7 @@ func (r *RedisCache) Get(ctx context.Context, key string) ([]byte, error) {
 }
 
 // Set 实现 Cache 接口的 Set 方法
-func (r *RedisCache) Set(ctx context.Context, key string, value []byte, expiration time.Duration) error {
+func (r *RedisCache) Set(ctx context.Context, key string, value interface{}, expiration time.Duration) error {
 	return r.client.Set(ctx, key, value, expiration).Err()
 }
 
