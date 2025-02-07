@@ -17,16 +17,16 @@ func NewMemoryCache() *MemoryCache {
 }
 
 // Get 实现 Cache 接口的 Get 方法
-func (m *MemoryCache) Get(ctx context.Context, key string) (interface{}, error) {
+func (m *MemoryCache) Get(ctx context.Context, key string) ([]byte, error) {
 	val, ok := m.store.Load(key)
 	if !ok {
 		return nil, nil // 键不存在
 	}
-	return val.(interface{}), nil
+	return val.([]byte), nil
 }
 
 // Set 实现 Cache 接口的 Set 方法
-func (m *MemoryCache) Set(ctx context.Context, key string, value interface{}, expiration time.Duration) error {
+func (m *MemoryCache) Set(ctx context.Context, key string, value []byte, expiration time.Duration) error {
 	m.store.Store(key, value)
 	return nil
 }
