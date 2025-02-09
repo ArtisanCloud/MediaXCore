@@ -8,7 +8,7 @@ import (
 // Cache 接口定义了缓存的基本操作
 type CacheInterface interface {
 	// Get 获取缓存值
-	Get(ctx context.Context, key string) (interface{}, error)
+	Get(ctx context.Context, key string) ([]byte, error)
 
 	// Set 设置缓存值
 	Set(ctx context.Context, key string, value interface{}, expiration time.Duration) error

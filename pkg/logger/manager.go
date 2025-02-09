@@ -1,11 +1,13 @@
 package logger
 
 import (
+	"context"
 	"fmt"
-	lumberjack "github.com/ArtisanCloud/MediaXCore/pkg/logger/lib"
-	"github.com/ArtisanCloud/MediaXCore/pkg/logger/utils"
 	"os"
 	"sync"
+
+	lumberjack "github.com/ArtisanCloud/MediaXCore/pkg/logger/lib"
+	"github.com/ArtisanCloud/MediaXCore/pkg/logger/utils"
 
 	"github.com/ArtisanCloud/MediaXCore/pkg/logger/config"
 	"github.com/ArtisanCloud/MediaXCore/pkg/logger/writer"
@@ -115,6 +117,10 @@ func GetLogger(c *config.LogConfig) *Logger {
 		instance = NewLogger(c)
 	})
 	return instance
+}
+
+func (l *Logger) WithContext(ctx context.Context) *Logger {
+	return l
 }
 
 // Info 输出 Info 日志
