@@ -26,7 +26,7 @@ func (m *MemoryCache) Get(ctx context.Context, key string) ([]byte, error) {
 }
 
 // Set 实现 Cache 接口的 Set 方法
-func (m *MemoryCache) Set(ctx context.Context, key string, value []byte, expiration time.Duration) error {
+func (m *MemoryCache) Set(ctx context.Context, key string, value interface{}, expiration time.Duration) error {
 	m.store.Store(key, value)
 	return nil
 }
