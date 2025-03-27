@@ -6,7 +6,7 @@ import (
 )
 
 // Cache 接口定义了缓存的基本操作
-type CacheInterface interface {
+type ICache interface {
 	// Get 获取缓存值
 	Get(ctx context.Context, key string) ([]byte, error)
 
