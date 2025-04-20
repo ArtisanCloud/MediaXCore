@@ -11,4 +11,4 @@ MediaXCore 是一个支持插件化的核心模块，为内容发布和管理场
 ## 许可证
 
 此项目基于 [MIT License](https://opensource.org/licenses/MIT)。
-```
+
