@@ -2,7 +2,6 @@ package object
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"reflect"
 	"sort"
@@ -86,16 +85,55 @@ func StructToStringMapWithTag(obj interface{}, tag string) (newMap *StringMap, e
 
 }
 
-func StructToStringMap(obj interface{}) (newMap *StringMap, err error) {
-	data, err := json.Marshal(obj) // Convert to a json string
+//func StructToStringMap(obj interface{}) (newMap *StringMap, err error) {
+//	data, err := json.Marshal(obj) // Convert to a json string
+//
+//	if err != nil {
+//		return
+//	}
+//
+//	newMap = &StringMap{}
+//	err = json.Unmarshal(data, newMap) // Convert to a map
+//	return
+//}
 
-	if err != nil {
-		return
+func StructToStringMap(obj interface{}) (*StringMap, error) {
+	// 使用反射遍历字段
+	val := reflect.ValueOf(obj)
+	if val.Kind() == reflect.Ptr {
+		val = val.Elem()
 	}
 
-	newMap = &StringMap{}
-	err = json.Unmarshal(data, newMap) // Convert to a map
-	return
+	if val.Kind() != reflect.Struct {
+		return nil, fmt.Errorf("expected struct type but got %s", val.Kind())
+	}
+
+	newMap := make(StringMap) // 假设 StringMap = map[string]string
+
+	typ := val.Type()
+	for i := 0; i < val.NumField(); i++ {
+		field := val.Field(i)
+		fieldType := typ.Field(i)
+
+		// 获取字段名或 tag
+		key := fieldType.Tag.Get("json")
+		if key == "-" {
+			continue // 跳过 json:"-" 的字段
+		}
+		if key == "" {
+			key = fieldType.Name
+		}
+		// 跳过未导出字段
+		if !field.CanInterface() {
+			continue
+		}
+
+		// 转换值为字符串
+		valueStr := fmt.Sprintf("%v", field.Interface())
+		newMap[key] = valueStr
+	}
+
+	return &newMap, nil
 }
 
 func GetJoinedWithKSort(params *StringMap) string {
