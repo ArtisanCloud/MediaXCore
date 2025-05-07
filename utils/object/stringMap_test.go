@@ -1,7 +1,9 @@
 package object
 
 import (
+	"github.com/ArtisanCloud/MediaXCore/utils/fmt"
 	"github.com/stretchr/testify/assert"
+	"reflect"
 	"testing"
 )
 
@@ -67,4 +69,38 @@ func Test_ReplaceStringMapRecursive(t *testing.T) {
 		"key6": "&StringMap{}",
 	}, toMap)
 
+}
+
+type TestStruct struct {
+	ID           int     `json:"id"`
+	Name         string  `json:"name"`
+	Active       bool    `json:"active"`
+	Score        float64 `json:"score"`
+	IgnoredField string  `json:"-"`
+}
+
+func TestStructToStringMap(t *testing.T) {
+	input := TestStruct{
+		ID:     123,
+		Name:   "Alice",
+		Active: true,
+		Score:  99.5,
+	}
+
+	expected := StringMap{
+		"id":     "123",
+		"name":   "Alice",
+		"active": "true",
+		"score":  "99.5",
+	}
+
+	result, err := StructToStringMap(input)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	fmt.Dump(result)
+
+	if !reflect.DeepEqual(*result, expected) {
+		t.Errorf("expected %v, got %v", expected, *result)
+	}
 }
