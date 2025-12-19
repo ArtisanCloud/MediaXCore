@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"sort"
+	"strings"
 )
 
 type StringMap map[string]string
@@ -98,9 +99,12 @@ func StructToStringMapWithTag(obj interface{}, tag string) (newMap *StringMap, e
 //}
 
 func StructToStringMap(obj interface{}) (*StringMap, error) {
-	// 使用反射遍历字段
 	val := reflect.ValueOf(obj)
 	if val.Kind() == reflect.Ptr {
+		if val.IsNil() {
+			newMap := make(StringMap)
+			return &newMap, nil
+		}
 		val = val.Elem()
 	}
 
@@ -108,27 +112,47 @@ func StructToStringMap(obj interface{}) (*StringMap, error) {
 		return nil, fmt.Errorf("expected struct type but got %s", val.Kind())
 	}
 
-	newMap := make(StringMap) // 假设 StringMap = map[string]string
-
+	newMap := make(StringMap)
 	typ := val.Type()
 	for i := 0; i < val.NumField(); i++ {
 		field := val.Field(i)
 		fieldType := typ.Field(i)
 
-		// 获取字段名或 tag
-		key := fieldType.Tag.Get("json")
-		if key == "-" {
-			continue // 跳过 json:"-" 的字段
-		}
-		if key == "" {
-			key = fieldType.Name
-		}
-		// 跳过未导出字段
 		if !field.CanInterface() {
 			continue
 		}
 
-		// 转换值为字符串
+		tag := fieldType.Tag.Get("json")
+		if tag == "-" {
+			continue
+		}
+
+		key := fieldType.Name
+		if tag != "" {
+			tagName := tag
+			tagOpts := ""
+			if idx := strings.Index(tag, ","); idx >= 0 {
+				tagName = tag[:idx]
+				tagOpts = tag[idx+1:]
+			}
+			if tagName != "" {
+				key = tagName
+			}
+			if tagOpts != "" {
+				opts := strings.Split(tagOpts, ",")
+				skip := false
+				for _, opt := range opts {
+					if strings.TrimSpace(opt) == "omitempty" && field.IsZero() {
+						skip = true
+						break
+					}
+				}
+				if skip {
+					continue
+				}
+			}
+		}
+
 		valueStr := fmt.Sprintf("%v", field.Interface())
 		newMap[key] = valueStr
 	}

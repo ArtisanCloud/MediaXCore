@@ -1,3 +1,5 @@
 logs
 
 *.so
+
+.DS_Store
